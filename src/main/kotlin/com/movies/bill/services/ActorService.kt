@@ -8,46 +8,53 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
+import java.util.*
 
 @Service
 class ActorService(val repository: ActorRepository) {
     fun getAll(): List<Actor> = repository.findAll()
 
-    fun getById(id: Long): Actor = repository.findByIdOrNull(id) ?:
-    throw ResponseStatusException(HttpStatus.NOT_FOUND)
+    fun getById(id: Long): Optional<Actor> = repository.findById(id)
+
+//    fun getById(id: Long): Actor = repository.findById(id) ?:
+//    throw ResponseStatusException(HttpStatus.NOT_FOUND)
+
+    fun getByName(name: String): Actor {
+        return repository.getActorByName(name)
+    }
 
     fun createActor(actor: Actor): Actor = repository.save(actor)
 
     /**
      * add kotlin docs
      */
-    fun deleteActorById(id: Long): Boolean {
-        return try {
-            if (repository.existsById(id)) {
-                repository.deleteById(id)
-                true // Deletion successful
-            } else {
-                false // Entity with specified ID does not exist
-            }
-        } catch (ex: EmptyResultDataAccessException) {
-            false // Entity with specified ID does not exist
-        }
-    }
-
-    fun updateActor(id: Long, actor: Actor): Actor {
-        return if (repository.existsById(id)) {
-            repository.save(actor)
-        } else throw ResponseStatusException(HttpStatus.NOT_FOUND)
-    }
+//    fun deleteActorById(id: Long): Boolean {
+//        return try {
+//            if (repository.existsById(id)) {
+//                repository.deleteById(id)
+//                true // Deletion successful
+//            } else {
+//                false // Entity with specified ID does not exist
+//            }
+//        } catch (ex: EmptyResultDataAccessException) {
+//            false // Entity with specified ID does not exist
+//        }
+//    }
+//
+//    fun updateActor(id: Long, actor: Actor): Actor {
+//        return if (repository.existsById(id)) {
+//            repository.save(actor)
+//        } else throw ResponseStatusException(HttpStatus.NOT_FOUND)
+//    }
 
     // TODO REMOVE
-    fun convertListToJson(actors: List<Actor>): String {
-        // Create an instance of ObjectMapper
-        val objectMapper = ObjectMapper()
-
-        // Convert the list of objects to JSON string
-        val jsonString = objectMapper.writeValueAsString(actors)
-        println("$jsonString PRINTING RESPONSE")
-        return jsonString
-    }
+//    fun convertListToJson(actors: List<Actor>): String {
+//        // Create an instance of ObjectMapper
+//        val objectMapper = ObjectMapper()
+//
+//        // Convert the list of objects to JSON string
+//        val jsonString = objectMapper.writeValueAsString(actors)
+//        println("$jsonString PRINTING RESPONSE")
+//        return jsonString
+//    }
 }

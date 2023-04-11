@@ -1,17 +1,17 @@
 package com.movies.bill.models
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
 import java.util.*
 
 @Entity
 data class Actor(@Id
-                     @GeneratedValue(strategy = GenerationType.IDENTITY)
+                 @GeneratedValue(strategy = GenerationType.IDENTITY)
+                 @Column(name="actor_id")
                  private var id: Long,
-                 private var name: String) :IPerson {
+                 @Column(unique=true)
+                 private var name: String,
+                 @OneToMany(mappedBy = "actor")
+                 val movieActors: Set<MovieActor> = HashSet()) :IPerson {
 //                 @Column(nullable = true)
 //                 private var gender: String? = null,
 //                 @Column(nullable = true)
@@ -21,6 +21,7 @@ data class Actor(@Id
 
     override fun getId(): Long = id
     override fun getName(): String = name
+
 //    override fun getGender(): String? = gender
 //    override fun getRole(): String? {
 //        throw UnsupportedOperationException("This operation is not supported.")

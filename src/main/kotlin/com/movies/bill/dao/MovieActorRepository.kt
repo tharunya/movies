@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 
 @Repository
-interface MovieActorRepository : JpaRepository<MovieActor, Long> {
+interface MovieActorRepository : JpaRepository<MovieActor, String> {
     // Find all actors for a given movie
     @Query("SELECT ma.actor FROM MovieActor ma WHERE ma.movie.id = :movieId")
     fun findAllActorsByMovieId(@Param("movieId") movieId: Long): List<Actor>

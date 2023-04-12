@@ -4,26 +4,22 @@ import jakarta.persistence.*
 
 @Entity
 data class Movie(
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name="movie_id")
-        private var id: Long,
+        // TODO UUID?
+        @Column(unique=true)
+        private var id: String,
         @Column(unique=true)
         private var releaseDate: String,
-        @Column(unique=true)
-        private var title: String,
-        @OneToMany(mappedBy = "movie")
-        private var movieActors: Set<MovieActor> = HashSet()): IMedia {
-    //        @Column(nullable = true)
-    //        private var genre: String? = null
-    override fun getId(): Long = id
+        @Id
+        @Column(name="title")
+        private var title: String): IMedia {
+    override fun getId(): String? = id
 
     // Getter methods
     override fun getReleaseDate(): String = releaseDate
 
     override fun getTitle(): String = title
 
-    fun getMovieActors(): Set<MovieActor> = movieActors
+//    fun getMovieActors(): Set<MovieActor> = movieActors
 
 //    override fun getGenre(): String? {
 //        throw UnsupportedOperationException("Genre is not supported.")
@@ -38,9 +34,9 @@ data class Movie(
         title = newTitle
     }
 
-    fun setMovieActors(movieActors: Set<MovieActor>) {
-        this.movieActors = movieActors
-    }
+//    fun setMovieActors(movieActors: Set<MovieActor>) {
+//        this.movieActors = movieActors
+//    }
 
 //    override fun setGenre(newGenre: String) {
 //        throw UnsupportedOperationException("Setting Genre is not supported.")

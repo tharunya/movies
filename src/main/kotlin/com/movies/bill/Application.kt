@@ -4,8 +4,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class BillApplication
+class Application
 
 fun main(args: Array<String>) {
-	runApplication<BillApplication>(*args)
+	/**
+	 * Exceptions (custom)
+	 * Unit tests
+	 * clean up code
+	 *
+	 * UUID?
+	 */
+	runApplication<Application>(*args)
 }

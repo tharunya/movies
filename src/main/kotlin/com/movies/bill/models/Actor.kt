@@ -1,17 +1,24 @@
 package com.movies.bill.models
 
 import jakarta.persistence.*
-import java.util.*
+import jakarta.validation.constraints.NotNull
 
 @Entity
-data class Actor(@Id
-                 @GeneratedValue(strategy = GenerationType.IDENTITY)
-                 @Column(name="actor_id")
-                 private var id: Long,
-                 @Column(unique=true)
+data class Actor(
+//                 @GeneratedValue(generator = "UUID")
+//                 @GenericGenerator(
+//                     name = "UUID",
+//                     strategy = "org.hibernate.id.UUIDGenerator"
+//                 )
+                 @NotNull
+                 @Column(unique = true)
+                 private var id: String,
+                 @Id
+                 @Column(name="actor_name")
                  private var name: String,
-                 @OneToMany(mappedBy = "actor")
-                 val movieActors: Set<MovieActor> = HashSet()) :IPerson {
+//                 @OneToMany(mappedBy = "actor")
+//                 val movieActors: Set<MovieActor> = HashSet()
+                ) :IPerson {
 //                 @Column(nullable = true)
 //                 private var gender: String? = null,
 //                 @Column(nullable = true)
@@ -19,7 +26,7 @@ data class Actor(@Id
 //                 @Column(nullable = true)
 //                 private var availability: String? = null) : IPerson {
 
-    override fun getId(): Long = id
+    override fun getId(): String? = id
     override fun getName(): String = name
 
 //    override fun getGender(): String? = gender

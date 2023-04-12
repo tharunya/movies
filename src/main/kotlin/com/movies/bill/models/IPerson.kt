@@ -3,8 +3,9 @@ package com.movies.bill.models
 import java.util.*
 
 interface IPerson {
+    fun getId(): String?
 
-    fun getId(): Long
+//    fun getId(): UUID?
     fun getName(): String
 //    fun getRole(): String?
 //    fun getAvailability(): String?

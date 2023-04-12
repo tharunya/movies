@@ -2,7 +2,7 @@ package com.movies.bill.models
 
 interface IMedia {
 
-    fun getId(): Long
+    fun getId(): String?
     fun getReleaseDate(): String
     fun getTitle(): String
 //    fun getGenre(): String?

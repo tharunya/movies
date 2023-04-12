@@ -19,7 +19,7 @@ interface ActorRepository : JpaRepository<Actor, UUID>{
 
     @Transactional
     @Query("SELECT new com.movies.bill.dto.CreateActorRequest(a.id, a.name) FROM Actor a WHERE a.name = :name")
-    fun getByName(@Param("name") name: String): CreateActorRequest;
+    fun getByName(@Param("name") name: String): CreateActorRequest?;
 
 //    @Transactional
 //    @Query("")

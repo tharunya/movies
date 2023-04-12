@@ -4,15 +4,15 @@ import jakarta.persistence.*
 
 @Entity
 data class Movie(
-        // TODO UUID?
-        @Column(unique=true)
-        private var id: String,
-        @Column(unique=true)
-        private var releaseDate: String,
-        @Id
-        @Column(name="title")
-        private var title: String): IMedia {
-    override fun getId(): String? = id
+                // TODO UUID?
+                @Column(unique=true)
+                private var id: String,
+                @Column(unique=true)
+                private var releaseDate: String,
+                @Id
+                @Column(name="title")
+                private var title: String): IMedia {
+    override fun getId(): String = id
 
     // Getter methods
     override fun getReleaseDate(): String = releaseDate

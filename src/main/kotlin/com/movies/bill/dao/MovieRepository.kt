@@ -1,5 +1,6 @@
 package com.movies.bill.dao
 
+import com.movies.bill.dto.CreateMovieRequest
 import com.movies.bill.models.Movie
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
@@ -11,6 +12,6 @@ import java.util.*
 @Repository
 interface MovieRepository : JpaRepository<Movie, Long> {
     @Transactional
-    @Query("SELECT m.id, m.title FROM Movie as m WHERE m.title = :title")
-    fun getMovieByTitle(@Param("title") title: String): Optional<Movie>;
+    @Query("SELECT new com.movies.bill.dto.CreateMovieRequest(m.id, m.title) FROM Movie m WHERE m.title = :title")
+    fun getMovieByTitle(@Param("title") title: String): CreateMovieRequest?;
 }

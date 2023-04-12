@@ -1,5 +1,6 @@
 package com.movies.bill.controllers
 
+import com.movies.bill.dto.CreateActorRequest
 import com.movies.bill.models.Actor
 import com.movies.bill.services.ActorService
 import jakarta.validation.Valid
@@ -36,7 +37,7 @@ class ActorController {
 //        return ResponseEntity.ok(actor);
 //    }
 
-    @GetMapping("/byname", produces = [MediaType.APPLICATION_JSON_VALUE])
+    @GetMapping("/byname")
     fun getActorByName(@RequestParam("name") name: String): ResponseEntity<Actor> {
         val actor = actorService.getByName(name)
         return ResponseEntity.ok(actor)
@@ -44,21 +45,21 @@ class ActorController {
 
     // Create a new actor
     @PostMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun createActor(@Valid @RequestBody actor: Actor): ResponseEntity<Actor> {
+    fun createActor(@Valid @RequestBody actor: CreateActorRequest): ResponseEntity<Actor> {
         val createdActor = actorService.createActor(actor)
         return ResponseEntity.status(HttpStatus.CREATED).body(createdActor)
     }
 
     // Update an existing actor
-    @PutMapping("/{id}")
-    fun updateActor(@PathVariable("id") id: Long, @RequestBody actor: Actor): ResponseEntity<Actor> {
-        val updatedActor = actorService.updateActor(id, actor)
-        return if (updatedActor != null) {
-            ResponseEntity.ok(updatedActor)
-        } else {
-            ResponseEntity.notFound().build()
-        }
-    }
+//    @PutMapping("/{id}")
+//    fun updateActor(@PathVariable("id") id: Long, @RequestBody actor: Actor): ResponseEntity<Actor> {
+//        val updatedActor = actorService.updateActor(id, actor)
+//        return if (updatedActor != null) {
+//            ResponseEntity.ok(updatedActor)
+//        } else {
+//            ResponseEntity.notFound().build()
+//        }
+//    }
 
 //    // Delete an actor by ID
 //    @DeleteMapping("/{id}")

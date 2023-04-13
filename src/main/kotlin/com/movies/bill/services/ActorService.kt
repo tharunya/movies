@@ -26,8 +26,8 @@ class ActorService(private val actorRepository: ActorRepository) {
 
     fun getAll(): List<Actor> = actorRepository.findAll()
 
-    fun getById(id: UUID): Optional<Actor> = actorRepository.findById(id) ?:
-    throw ResponseStatusException(HttpStatus.NOT_FOUND)
+//    fun getById(id: String): Optional<Actor> = actorRepository.findById(id) ?:
+//    throw ResponseStatusException(HttpStatus.NOT_FOUND)
 
     fun getByName(name: String): Actor? {
         val actor = actorRepository.getByName(name)
@@ -81,16 +81,5 @@ class ActorService(private val actorRepository: ActorRepository) {
 //        return if (repository.existsById(id)) {
 //            repository.save(actor)
 //        } else throw ResponseStatusException(HttpStatus.NOT_FOUND)
-//    }
-
-    // TODO REMOVE
-//    fun convertListToJson(actors: List<Actor>): String {
-//        // Create an instance of ObjectMapper
-//        val objectMapper = ObjectMapper()
-//
-//        // Convert the list of objects to JSON string
-//        val jsonString = objectMapper.writeValueAsString(actors)
-//        println("$jsonString PRINTING RESPONSE")
-//        return jsonString
 //    }
 }

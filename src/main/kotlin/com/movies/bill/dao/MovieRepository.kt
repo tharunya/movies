@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Repository
-interface MovieRepository : JpaRepository<Movie, Long> {
+interface MovieRepository : JpaRepository<Movie, String> {
     @Transactional
-    @Query("SELECT new com.movies.bill.dto.CreateMovieRequest(m.id, m.title) FROM Movie m WHERE m.title = :title")
+    @Query("SELECT new com.movies.bill.dto.CreateMovieRequest(m.id, m.title, m.releaseDate) FROM Movie m WHERE m.title = :title")
     fun getMovieByTitle(@Param("title") title: String): CreateMovieRequest?;
 }

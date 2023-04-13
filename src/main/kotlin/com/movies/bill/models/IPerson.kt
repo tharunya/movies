@@ -4,14 +4,6 @@ import java.util.*
 
 interface IPerson {
     fun getId(): String?
-
-//    fun getId(): UUID?
     fun getName(): String
-//    fun getRole(): String?
-//    fun getAvailability(): String?
-//    fun getGender(): String?
     fun setName(name: String)
-//    fun setGender(gender: String)
-//    fun setRole(role: String)
-//    fun setAvailability(dates: List<Date>)
 }

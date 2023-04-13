@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Repository
-interface ActorRepository : JpaRepository<Actor, UUID>{
+interface ActorRepository : JpaRepository<Actor, String>{
 
 //    @Transactional
 //    @Query("SELECT movie.movie_title, actor.name FROM Actor, Movie WHERE Actor.actor_id = movie_actors.actor_id and movie_actors.movie_id=Movie.movie_id and movie.movie_title=:movie_title")

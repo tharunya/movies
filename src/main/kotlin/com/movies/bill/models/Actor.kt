@@ -18,7 +18,7 @@ data class Actor(
                  private var name: String,
                 ) :IPerson {
 
-    override fun getId(): String? = id
+    override fun getId(): String = id
     override fun getName(): String = name
 
     // Setters (custom implementation)

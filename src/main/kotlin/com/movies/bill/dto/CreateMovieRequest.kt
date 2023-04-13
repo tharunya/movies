@@ -7,5 +7,5 @@ data class CreateMovieRequest (
         var title: String,
         var releaseDate: String,
         @JsonProperty("actors")
-        var actors: List<CreateActorRequest>
+        var actors: ArrayList<CreateActorRequest>
 )

@@ -32,7 +32,7 @@ class ActorController {
 
 //    @GetMapping("/byname")
 //    fun getActorByName(@RequestParam("name") name: String): ResponseEntity<Actor> {
-////        val actor: Array<Actor> = actorService.getByName(name)
+//        val actor: Array<Actor> = actorService.getByName(name)
 //        val actor: String = actorService.getActorByNameString(name)
 //        return ResponseEntity.ok(actor);
 //    }

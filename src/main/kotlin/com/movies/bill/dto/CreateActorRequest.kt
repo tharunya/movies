@@ -7,5 +7,8 @@ data class CreateActorRequest(
         // TODO add private and getters and setters
         var id: String,
         @JsonProperty("name")
-        var name: String
+        var name: String,
+        @JsonProperty
+        var oldActor:String?
+
 )

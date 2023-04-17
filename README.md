@@ -1,4 +1,4 @@
-# movies
+# Movies
 
 # Getting Started
 
@@ -16,3 +16,16 @@ The following guides illustrate how to use some features concretely:
 
 * [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
 
+# How to run application
+Pre-requisites:
+- mySQL, IDE - Java 17 or above
+- Replace <username> <password> and <db_name> in application.properties and create a db with <db_name> in mySQL
+- Postman to test
+- Install maven
+
+To run:
+- mvn clean install
+- Run Application.kt file to test the application on port 8080 using postman application or alike
+
+# How to run unit tests
+- Run unit tests in order listed in the @Order annotation

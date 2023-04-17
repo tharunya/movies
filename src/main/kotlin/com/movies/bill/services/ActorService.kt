@@ -19,15 +19,9 @@ import java.util.*
 @Service
 class ActorService(private val actorRepository: ActorRepository) {
 
-//    @Autowired
-//    lateinit var actorRepository: ActorRepository
-
     private val logger = MovieLogger()
 
     fun getAll(): List<Actor> = actorRepository.findAll()
-
-//    fun getById(id: String): Optional<Actor> = actorRepository.findById(id) ?:
-//    throw ResponseStatusException(HttpStatus.NOT_FOUND)
 
     fun getByName(name: String): Actor? {
         val actor = actorRepository.getByName(name)
@@ -56,30 +50,18 @@ class ActorService(private val actorRepository: ActorRepository) {
         return actorCreated
     }
 
-//    fun createActorOld(actor: Actor): Actor {
-//        // TODO handle data integrity exception for duplicate actors. return response in readable format
-//        var actor = repository.save(actor)
-//        return actor
-//    }
+    fun saveIfNotPresent(id: String, name: String) {
+        val actor = actorRepository.getByName(name)
+        if(actor==null){
+            actorRepository.save( Actor(id,name));
+        }
+    }
 
-//    fun deleteActorById(id: UUID): Boolean {
-//        return try {
-//            if (repository.existsById(id)) {
-//                repository.deleteById(id)
-//                true // Deletion successful
-//            } else {
-//                false // Entity with specified ID does not exist
-//            }
-//        } catch (ex: EmptyResultDataAccessException) {
-//            false // Entity with specified ID does not exist
-//        }
-//    }
-//
-//    fun updateActor(id: String, actor: Actor): Actor {
-    //        throw ResponseStatusException(HttpStatus.NOT_FOUND, "Actor with name $name does not exist")
+    fun getOrphanedActors():List<String>{
+        return actorRepository.getOrphanedActors();
+    }
 
-//        return if (repository.existsById(id)) {
-//            repository.save(actor)
-//        } else throw ResponseStatusException(HttpStatus.NOT_FOUND)
-//    }
+    fun deleteActor(name:String){
+        actorRepository.deleteActor(name);
+    }
 }

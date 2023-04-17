@@ -28,8 +28,6 @@ class MovieService {
 
     fun getAll(): List<Movie> = movieRepository.findAll()
 
-//    fun getById(id: String): Optional<Movie> = movieRepository.findById(id)
-
     fun movieExists(title: String): Movie? {
         val movie = movieRepository.getMovieByTitle(title)
         if (movie != null) {
@@ -54,7 +52,7 @@ class MovieService {
         val movieReleaseDate = movieResponseDto.get(0).moviereleaseDate
         val actorList = ArrayList<CreateActorRequest>()
         for (movieResponse in movieResponseDto) {
-            actorList.add(CreateActorRequest(movieResponse.actorId, movieResponse.actorName))
+            actorList.add(CreateActorRequest(movieResponse.actorId, movieResponse.actorName,""))
         }
 
         return CreateMovieRequest(movieId, movieTitle, movieReleaseDate, actorList)
@@ -62,10 +60,10 @@ class MovieService {
 
     @Transactional
     fun createMovie(movieRequest: CreateMovieRequest): Movie {
-        val existingMovie = movieExists(movieRequest.title)
-        if(existingMovie!=null){
-            throw IllegalArgumentException("Actor with name ${movieRequest.title} already exists")
-        }
+//        val existingMovie = movieExists(movieRequest.title)
+//        if(existingMovie!=null){
+//            throw IllegalArgumentException("Actor with name ${movieRequest.title} already exists")
+//        }
         // TODO Ideally, we can cache the ID's in a LRU fashion and return `movie was already created` if the id exists in lru
         val movieObject = Movie(id = movieRequest.id, title = movieRequest.title, releaseDate = movieRequest.releaseDate)
         val createdMovie = movieRepository.save(movieObject)
@@ -76,5 +74,36 @@ class MovieService {
             movieActorRepository.save(movieActor);
         }
         return createdMovie;
+    }
+
+
+    fun updateMovie(movieRequest: CreateMovieRequest){
+        movieRepository.updateMovie(movieRequest.title,movieRequest.id,movieRequest.releaseDate);
+        for(actor in movieRequest.actors){
+            // actorService.saveIfNotPresent( actor.id,actor.name);
+            var oldActor:String? = actor.oldActor;
+            if (oldActor != null) {
+                actorService.saveIfNotPresent(actor.id,actor.name)
+                movieActorRepository.updateActor(actor.name,movieRequest.title,oldActor)
+            }else{
+                throw Exception("Old actor name should be present in the request for updating actors");
+            }
+        }
+        getAndDeleteOrphanedActors()
+    }
+
+    fun deleteMovie(movieName:String){
+        movieActorRepository.deleteByName(movieName)
+        movieRepository.deleteByName(movieName)
+        getAndDeleteOrphanedActors()
+
+    }
+
+    private fun getAndDeleteOrphanedActors() {
+        var orphanedActors:List<String> = actorService.getOrphanedActors();
+
+        for(actorName in orphanedActors){
+            actorService.deleteActor(actorName);
+        }
     }
 }
